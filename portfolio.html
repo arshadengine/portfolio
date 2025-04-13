@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arshad Shaikh - Portfolio</title>
+    <link rel="stylesheet" href="portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">AS</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <img src="../19th Feb.jpg" alt="Arshad Shaikh" class="profile-image">
+            <h1>Arshad Shafik Shaikh</h1>
+            <p class="tagline">B.Tech AIML Engineer | Web Developer | Python Moderator</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn primary">View My Work</a>
+                <a href="#contact" class="btn secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>Hello! I'm Arshad Shaikh, a passionate <b>B.Tech AIML Engineer</b> with a focus on creating innovative solutions 
+                through technology. I specialize in Python development, web technologies, and AI integration. My journey in tech 
+                has been driven by a desire to build solutions that make a real impact.</p>
+                
+                <div class="experience-card">
+                    <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                    <div class="experience-item">
+                        <h4>ACMEGRADE Internship</h4>
+                        <p><i class="fas fa-code"></i> API & Flask Development</p>
+                        <ul>
+                            <li>Developed RESTful APIs using Flask</li>
+                            <li>Integrated third-party services</li>
+                            <li>Implemented secure authentication systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python Development</h3>
+                    <p>Advanced Python programming with focus on AI/ML applications</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>API Integration</h3>
+                    <p>RESTful API development and third-party service integration</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web Development</h3>
+                    <p>Modern web development using HTML5, CSS3, and JavaScript</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-django"></i>
+                    <h3>Flask & Django</h3>
+                    <p>Backend development with Python web frameworks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3><i class="fas fa-robot"></i> Virtual Assistant (NEXUS)</h3>
+                        <p>An advanced AI-powered virtual assistant built with Python, capable of natural language processing 
+                        and task automation.</p>
+                        <div class="tech-stack">
+                            <span>Python</span>
+                            <span>Speech Recognition</span>
+                            <span>NLP</span>
+                            <span>AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3><i class="fas fa-car"></i> Ride-sharing Integration</h3>
+                        <p>A unified platform integrating multiple ride-sharing services (Ola, Uber, Rapido) for seamless 
+                        booking experience.</p>
+                        <div class="tech-stack">
+                            <span>Python</span>
+                            <span>RESTful APIs</span>
+                            <span>Flask</span>
+                            <span>Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3><i class="fas fa-cloud-sun"></i> Weather App</h3>
+                        <p>Real-time weather application providing location-based weather data and forecasts with an 
+                        intuitive interface.</p>
+                        <div class="tech-stack">
+                            <span>Python</span>
+                            <span>Weather API</span>
+                            <span>Frontend</span>
+                            <span>UX Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>shaikharshad92316@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 91129 36409</p>
+                    </div>
+                </div>
+                <a href="mailto:shaikharshad92316@gmail.com" class="btn primary">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Arshad Shafik Shaikh. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(26, 26, 26, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(26, 26, 26, 0.8)';
+            }
+        });
+
+        // Add animation to elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        });
+
+        document.querySelectorAll('section').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
