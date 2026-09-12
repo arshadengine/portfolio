@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arshad Shafik Shaikh — Creative Developer & AI/ML Engineer</title>
+    <meta name="description" content="Portfolio of Arshad Shaikh — AIML Engineer & Creative Frontend Developer crafting motion-rich, 3D and interactive digital experiences.">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="portfolio.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- SVG Filters for Liquid Wave Distortion -->
+    <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+        <filter id="liquid-filter">
+            <feTurbulence id="liquid-turb" type="turbulence" baseFrequency="0.012 0.04" numOctaves="2" result="turbulence" />
+            <feDisplacementMap id="liquid-disp" in2="turbulence" in="SourceGraphic" scale="0" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <!-- Ambient Subtle Grain Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom Magnetic Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring">
+        <span class="cursor-text"></span>
+    </div>
+
+    <!-- Floating Preview Card for Expertise Section -->
+    <div class="floating-preview-card">
+        <img src="" alt="Service preview">
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification">Copied to clipboard!</div>
+
+    <!-- ======================================================================
+         PRELOADER & OPENING BANNER SEQUENCE
+         1. Hello handwriting on pure dark canvas
+         2. Opening banner (cream luxury panels)
+         3. Unveils Hero section
+         ====================================================================== -->
+     <div id="preloader">
+        <!-- Step 1: Dark Intro with Golden "hello" Handwriting -->
+        <div class="preloader-hello-wrap">
+            <div class="preloader-glow"></div>
+            <div id="lottie-hello" class="lottie-container"></div>
+        </div>
+
+        <!-- Step 2: Opening Banner (Luxury Cream Panels from Refrence.mp4) -->
+        <div class="opening-banner">
+            <div class="banner-panel top"></div>
+            <div class="banner-panel bottom"></div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         NAVIGATION BAR
+         ====================================================================== -->
+    <nav class="navbar">
+        <a href="#hero" class="nav-brand">
+            <span class="brand-signature">Arshad</span>
+            <span class="brand-dot">•</span>
+            <span class="brand-role">PORTFOLIO</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#work" class="nav-link">Work</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#expertise" class="nav-link">Expertise</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="#contact" class="nav-cta">
+                <span>Let's Talk</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <button class="nav-hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line line-1"></span>
+                <span class="hamburger-line line-2"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ======================================================================
+         FULLSCREEN MENU OVERLAY
+         ====================================================================== -->
+    <div class="fullscreen-menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="#work" class="menu-link"><span class="menu-num">01</span>Work</a>
+            </li>
+            <li class="menu-item">
+                <a href="#about" class="menu-link"><span class="menu-num">02</span>About</a>
+            </li>
+            <li class="menu-item">
+                <a href="#expertise" class="menu-link"><span class="menu-num">03</span>Expertise</a>
+            </li>
+            <li class="menu-item">
+                <a href="#contact" class="menu-link"><span class="menu-num">04</span>Contact</a>
+            </li>
+        </ul>
+
+        <div class="menu-footer">
+            <span class="location-tag">Based in Maharashtra, India</span>
+            <div class="menu-socials">
+                <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
+                <a href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a>
+                <a href="mailto:shaikharshad92316@gmail.com">Email ↗</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         HERO SECTION ("CREATIVE DEVELOPER")
+         ====================================================================== -->
+    <header id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-title-wrap">
+                <h1 class="hero-main-title">CREATIVE</h1>
+                <div class="hero-subtitle-row">
+                    <h2 class="hero-sub-title">DEVELOPER</h2>
+                </div>
+                <div class="hero-tag-pills">
+                    <span>VISUALS</span>
+                    <span class="dot">•</span>
+                    <span>CODE</span>
+                    <span class="dot">•</span>
+                    <span>EXPERIENCE</span>
+                </div>
+            </div>
+
+            <a href="#about" class="hero-scroll-indicator">
+                <div class="scroll-mouse-pill">
+                    <div class="scroll-mouse-dot"></div>
+                </div>
+                <span class="scroll-text">Scroll to explore</span>
+            </a>
+        </div>
+
+        <div class="hero-bottom-bar">
+            <div class="hero-bottom-left">
+                <span>©2025 Arshad Shafik Shaikh</span>
+            </div>
+            <div class="hero-bottom-right">
+                <a href="#contact" class="rotating-badge-container">
+                    <svg class="rotating-svg-text" viewBox="0 0 100 100">
+                        <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent"/>
+                        <text font-size="9" font-weight="700" letter-spacing="2.2" fill="#e6c687">
+                            <textPath href="#circlePath" startOffset="0%">
+                                • LET'S WORK TOGETHER • LET'S WORK TOGETHER
+                            </textPath>
+                        </text>
+                    </svg>
+                    <div class="badge-center-arrow">↗</div>
+                </a>
+                <span class="location-tag">Based in India</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         SECTION 01: ABOUT ME
+         ====================================================================== -->
+    <section id="about" class="section-wrapper">
+        <div class="section-badge-header">
+            <div class="section-arch-line"></div>
+            <div class="section-badge">
+                <span class="section-badge-star">✦</span>
+                <span>01 / ABOUT ME</span>
+            </div>
+            <div class="section-arch-line"></div>
+        </div>
+
+        <div class="about-grid">
+            <!-- 3D Tilt Portrait Frame -->
+            <div class="portrait-card-wrapper">
+                <div class="portrait-card">
+                    <img src="19th Feb.jpg" alt="Arshad Shafik Shaikh" class="portrait-img">
+                    <div class="portrait-tag-badge">
+                        <span class="portrait-status-dot"></span>
+                        <span>Arshad Shaikh</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Narrative Column -->
+            <div class="about-narrative">
+                <h2 class="about-headline">I Build Digital Worlds Where Design Meets Code.</h2>
+                
+                <p class="about-bio">
+                    I'm <strong>Arshad</strong> — a <strong><a href="https://www.taskas.tech/" target="_blank" rel="noopener noreferrer" class="founder-link">Founder <span class="link-arrow">↗</span></a>, AIML Engineer, and Product Builder</strong> who enjoys turning bold ideas into intelligent, interactive, and meaningful digital experiences.
+                </p>
+
+                <p class="about-bio" style="margin-top: -0.5rem;">
+                    I’m passionate about building products from the ground up — from AI/ML systems and web experiences to startup ideas that solve real-world problems. I enjoy working across technology, product, and design to turn an idea into something people can actually use.
+                </p>
+
+                <!-- 6-Item Info Grid -->
+                <div class="about-metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label">BUILDING</div>
+                        <div class="metric-value">Products • AI/ML • Startups</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">CRAFT</div>
+                        <div class="metric-value">Engineering • Design • Motion</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">EXPERIENCE</div>
+                        <div class="metric-value">2+ Years Building</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">APPROACH</div>
+                        <div class="metric-value">Build. Test. Improve.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">PROJECTS</div>
+                        <div class="metric-value">10+ Built & Shipped</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">CURRENTLY</div>
+                        <div class="metric-value">B.Tech AIML • Founder</div>
+                    </div>
+                </div>
+
+                <!-- Status Pills -->
+                <div class="about-pills-row">
+                    <span class="status-pill">Freelance Available</span>
+                    <span class="status-pill">AI/ML Specialist</span>
+                    <span class="status-pill">Full Stack Engineering</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 02: MY EXPERTISE & 3D TECH CANVAS
+         ====================================================================== -->
+    <section id="expertise" class="section-wrapper">
+        <div class="section-badge-header">
+            <div class="section-arch-line"></div>
+            <div class="section-badge">
+                <span class="section-badge-star">✦</span>
+                <span>02 / EXPERTISE</span>
+            </div>
+            <div class="section-arch-line"></div>
+        </div>
+
+        <div class="expertise-grid">
+            <!-- Left Info & 3D Canvas -->
+            <div class="expertise-intro">
+                <h2 class="expertise-title">My<br>Expertise</h2>
+                <p class="expertise-desc">
+                    I design and build digital experiences where design, code, and motion work as one. From expressive interfaces to high-performance AI systems.
+                </p>
+
+                <!-- Three.js 3D Floating Geometry Scene -->
+                <div class="three-canvas-container">
+                    <canvas id="three-expertise-canvas"></canvas>
+                    <span class="canvas-hint">Drag / Hover 3D Scene</span>
+                </div>
+
+                <div class="expertise-tech-pills">
+                    <span class="tech-tag-chip">Python</span>
+                    <span class="tech-tag-chip">AI & ML</span>
+                    <span class="tech-tag-chip">Three.js</span>
+                    <span class="tech-tag-chip">React.js</span>
+                    <span class="tech-tag-chip">GSAP</span>
+                    <span class="tech-tag-chip">Flask</span>
+                    <span class="tech-tag-chip">Tailwind</span>
+                </div>
+            </div>
+
+            <!-- Right Interactive Service List -->
+            <div class="expertise-list">
+                <div class="service-row" data-preview="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80">
+                    <div class="service-main">
+                        <div class="service-header">
+                            <span class="service-index">01</span>
+                            <h3 class="service-name">Creative Development</h3>
+                        </div>
+                        <p class="service-detail">Building fast, responsive and scalable interfaces with modern frontend technologies and component architecture.</p>
+                    </div>
+                    <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-row" data-preview="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80">
+                    <div class="service-main">
+                        <div class="service-header">
+                            <span class="service-index">02</span>
+                            <h3 class="service-name">Motion & Interaction</h3>
+                        </div>
+                        <p class="service-detail">Turning static websites into dynamic experiences through meaningful motion, GSAP ScrollTrigger, and smooth physics.</p>
+                    </div>
+                    <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-row" data-preview="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80">
+                    <div class="service-main">
+                        <div class="service-header">
+                            <span class="service-index">03</span>
+                            <h3 class="service-name">AI & Intelligent Systems</h3>
+                        </div>
+                        <p class="service-detail">Creating speech-enabled virtual assistants, NLP intent models, and integrating custom ML pipelines into web apps.</p>
+                    </div>
+                    <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-row" data-preview="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80">
+                    <div class="service-main">
+                        <div class="service-header">
+                            <span class="service-index">04</span>
+                            <h3 class="service-name">Modern Web Apps & APIs</h3>
+                        </div>
+                        <p class="service-detail">Developing scalable full-stack applications with Python Flask/Django, robust RESTful APIs, and secure integrations.</p>
+                    </div>
+                    <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         KINETIC WORK HEADER & SKILLS MARQUEE
+         ====================================================================== -->
+    <div class="work-marquee-section">
+        <h2 class="giant-work-title">WORK</h2>
+
+        <div class="floating-skills-overlay">
+            <span class="floating-chip" style="top: 22%; left: 18%;">HTML5</span>
+            <span class="floating-chip" style="top: 15%; right: 20%;">CSS3</span>
+            <span class="floating-chip" style="bottom: 25%; left: 24%;">JavaScript</span>
+            <span class="floating-chip" style="bottom: 18%; right: 28%;">React.JS</span>
+            <span class="floating-chip" style="top: 30%; left: 45%;">Python</span>
+            <span class="floating-chip" style="bottom: 30%; left: 52%;">GSAP</span>
+            <span class="floating-chip" style="top: 18%; right: 40%;">Three.js</span>
+            <span class="floating-chip" style="bottom: 14%; left: 10%;">Flask</span>
+        </div>
+
+        <div class="marquee-bar">
+            <div class="marquee-track">
+                <div class="marquee-content">
+                    <span class="marquee-item">UI/UX</span>
+                    <span class="marquee-item">INTERACTIVE WEB</span>
+                    <span class="marquee-item">CREATIVE DEVELOPMENT</span>
+                    <span class="marquee-item">MOTION DESIGN</span>
+                    <span class="marquee-item">AI ARCHITECTURE</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span class="marquee-item">UI/UX</span>
+                    <span class="marquee-item">INTERACTIVE WEB</span>
+                    <span class="marquee-item">CREATIVE DEVELOPMENT</span>
+                    <span class="marquee-item">MOTION DESIGN</span>
+                    <span class="marquee-item">AI ARCHITECTURE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         SECTION 03: PROJECTS SHOWCASE (STICKY STACKING CARDS)
+         ====================================================================== -->
+    <section id="work" class="section-wrapper">
+        <div class="section-badge-header">
+            <div class="section-arch-line"></div>
+            <div class="section-badge">
+                <span class="section-badge-star">✦</span>
+                <span>03 / WORK</span>
+            </div>
+            <div class="section-arch-line"></div>
+        </div>
+
+        <div class="projects-header">
+            <h2 class="projects-headline">I Design Visuals That Feel Alive.</h2>
+        </div>
+
+        <div class="cards-stack-container">
+            <!-- Project 01: NEXUS AI Virtual Assistant -->
+            <article class="project-card card-theme-1">
+                <div class="card-info">
+                    <span class="card-category-tag"><i class="fas fa-microchip"></i> AI & SPEECH RECOGNITION — 01</span>
+                    <h3 class="card-title">NEXUS Virtual Assistant</h3>
+                    <p class="card-desc">
+                        An advanced AI-powered voice assistant capable of real-time natural language processing, continuous speech recognition, task automation, and intelligent conversational responses.
+                    </p>
+                    <div class="card-tech-list">
+                        <span class="card-tech-badge">Python</span>
+                        <span class="card-tech-badge">SpeechRecognition</span>
+                        <span class="card-tech-badge">NLP</span>
+                        <span class="card-tech-badge">AI Integration</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#contact" class="card-btn primary">Explore Project ↗</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="card-btn secondary"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+                <div class="card-preview-wrap">
+                    <div class="card-preview-inner">
+                        <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80" alt="NEXUS AI Assistant" class="card-preview-img">
+                        <div class="card-mini-badge">
+                            <svg viewBox="0 0 100 100">
+                                <path id="pCircle1" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
+                                <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
+                                    <textPath href="#pCircle1">VIEW PROJECT • VIEW PROJECT •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 02: Creative 3D Portfolio -->
+            <article class="project-card card-theme-2">
+                <div class="card-info">
+                    <span class="card-category-tag"><i class="fas fa-cube"></i> 3D WEB & MOTION EXPERIENCE — 02</span>
+                    <h3 class="card-title">Creative 3D Portfolio</h3>
+                    <p class="card-desc">
+                        An award-winning caliber interactive portfolio built with Three.js WebGL shaders, kinetic liquid text distortion, butter-smooth Lenis momentum scrolling, and custom magnetic cursor physics.
+                    </p>
+                    <div class="card-tech-list">
+                        <span class="card-tech-badge">Three.js</span>
+                        <span class="card-tech-badge">GSAP ScrollTrigger</span>
+                        <span class="card-tech-badge">WebGL</span>
+                        <span class="card-tech-badge">Lenis</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#hero" class="card-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="card-btn secondary"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+                <div class="card-preview-wrap">
+                    <div class="card-preview-inner">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="Creative Portfolio" class="card-preview-img">
+                        <div class="card-mini-badge">
+                            <svg viewBox="0 0 100 100">
+                                <path id="pCircle2" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
+                                <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
+                                    <textPath href="#pCircle2">VIEW PROJECT • VIEW PROJECT •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 03: GAZU Creative Clothing Website -->
+            <article class="project-card card-theme-3">
+                <div class="card-info">
+                    <span class="card-category-tag"><i class="fas fa-bag-shopping"></i> CREATIVE APPAREL E-COMMERCE — 03</span>
+                    <h3 class="card-title">GAZU Creative Apparel</h3>
+                    <p class="card-desc">
+                        A modern digital shopping experience designed for contemporary brands, bringing products, style, and seamless commerce together with high-impact editorial layouts and micro-interactions.
+                    </p>
+                    <div class="card-tech-list">
+                        <span class="card-tech-badge">HTML5</span>
+                        <span class="card-tech-badge">Tailwind</span>
+                        <span class="card-tech-badge">JavaScript</span>
+                        <span class="card-tech-badge">GSAP</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://project.gazu.netlify.app" target="_blank" rel="noopener" class="card-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="card-btn secondary"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+                <div class="card-preview-wrap">
+                    <div class="card-preview-inner">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80" alt="GAZU Creative Clothing" class="card-preview-img">
+                        <div class="card-mini-badge">
+                            <svg viewBox="0 0 100 100">
+                                <path id="pCircle3" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
+                                <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
+                                    <textPath href="#pCircle3">VIEW PROJECT • VIEW PROJECT •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 04: Unified Ride-Sharing Integration -->
+            <article class="project-card card-theme-4">
+                <div class="card-info">
+                    <span class="card-category-tag"><i class="fas fa-car"></i> API INTEGRATION & SERVICES — 04</span>
+                    <h3 class="card-title">Ride-Sharing Aggregator</h3>
+                    <p class="card-desc">
+                        A unified platform integrating multiple ride-sharing services (Ola, Uber, Rapido) for a seamless booking experience with live fare comparison and synchronized location tracking.
+                    </p>
+                    <div class="card-tech-list">
+                        <span class="card-tech-badge">Python</span>
+                        <span class="card-tech-badge">Flask</span>
+                        <span class="card-tech-badge">RESTful APIs</span>
+                        <span class="card-tech-badge">Architecture</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#contact" class="card-btn primary">Explore Project ↗</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="card-btn secondary"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+                <div class="card-preview-wrap">
+                    <div class="card-preview-inner">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80" alt="Ride Sharing Platform" class="card-preview-img">
+                        <div class="card-mini-badge">
+                            <svg viewBox="0 0 100 100">
+                                <path id="pCircle4" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
+                                <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
+                                    <textPath href="#pCircle4">VIEW PROJECT • VIEW PROJECT •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 05: Luxury Timepieces (Time Redefined) -->
+            <article class="project-card card-theme-5">
+                <div class="card-info">
+                    <span class="card-category-tag"><i class="fas fa-clock"></i> HIGH-END 3D PRODUCT SHOWCASE — 05</span>
+                    <h3 class="card-title">Luxury Timepieces</h3>
+                    <p class="card-desc">
+                        A premium digital timepiece showcase highlighting timeless craftsmanship, refined details, and modern aesthetics with 3D product inspection and interactive material lighting.
+                    </p>
+                    <div class="card-tech-list">
+                        <span class="card-tech-badge">HTML5</span>
+                        <span class="card-tech-badge">Three.js</span>
+                        <span class="card-tech-badge">JavaScript</span>
+                        <span class="card-tech-badge">GSAP</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#contact" class="card-btn primary">View Showcase ↗</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="card-btn secondary"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+                <div class="card-preview-wrap">
+                    <div class="card-preview-inner">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80" alt="Luxury Timepiece" class="card-preview-img">
+                        <div class="card-mini-badge">
+                            <svg viewBox="0 0 100 100">
+                                <path id="pCircle5" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
+                                <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
+                                    <textPath href="#pCircle5">VIEW PROJECT • VIEW PROJECT •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 06: Real-Time Weather Intelligence -->
+            <article class="project-card card-theme-6">
+                <div class="card-info">
+                    <span class="card-category-tag"><i class="fas fa-cloud-sun"></i> WEATHER API & UX DESIGN — 06</span>
+                    <h3 class="card-title">Weather Intelligence</h3>
+                    <p class="card-desc">
+                        Real-time weather analytics application delivering location-aware meteorological forecasts, interactive radar visualization, and an intuitive glassmorphic interface.
+                    </p>
+                    <div class="card-tech-list">
+                        <span class="card-tech-badge">JavaScript</span>
+                        <span class="card-tech-badge">Weather API</span>
+                        <span class="card-tech-badge">CSS3 Glassmorphism</span>
+                        <span class="card-tech-badge">UX Design</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#contact" class="card-btn primary">Explore Project ↗</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="card-btn secondary"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+                <div class="card-preview-wrap">
+                    <div class="card-preview-inner">
+                        <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=1200&q=80" alt="Weather Intelligence" class="card-preview-img">
+                        <div class="card-mini-badge">
+                            <svg viewBox="0 0 100 100">
+                                <path id="pCircle6" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
+                                <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
+                                    <textPath href="#pCircle6">VIEW PROJECT • VIEW PROJECT •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 04: CONTACT & FOOTER
+         ====================================================================== -->
+    <section id="contact" class="contact-section">
+        <div class="contact-watermark">CONTACT</div>
+
+        <div class="section-wrapper" style="padding-top: 0; padding-bottom: 0;">
+            <div class="section-badge-header" style="justify-content: flex-start; margin-bottom: 3rem;">
+                <div class="section-badge">
+                    <span class="section-badge-star">✦</span>
+                    <span>04 / CONTACT</span>
+                </div>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Left Details -->
+                <div class="contact-left">
+                    <h2 class="contact-headline">Let's Create Something Meaningful.</h2>
+                    <p class="contact-subtext">
+                        Have a project in mind, a question, or simply want to talk about an idea? I'd love to hear from you.
+                    </p>
+
+                    <div class="contact-cards-col">
+                        <div class="contact-info-card" id="copy-email-card" title="Click to copy email">
+                            <div class="info-card-left">
+                                <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                                <div class="info-texts">
+                                    <span class="info-title">Email Me</span>
+                                    <span class="info-detail">shaikharshad92316@gmail.com</span>
+                                </div>
+                            </div>
+                            <div class="info-action-btn"><i class="fas fa-copy"></i></div>
+                        </div>
+
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-info-card">
+                            <div class="info-card-left">
+                                <div class="info-icon"><i class="fab fa-linkedin-in"></i></div>
+                                <div class="info-texts">
+                                    <span class="info-title">Connect</span>
+                                    <span class="info-detail">LinkedIn Profile</span>
+                                </div>
+                            </div>
+                            <div class="info-action-btn"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                        </a>
+
+                        <div class="contact-info-card">
+                            <div class="info-card-left">
+                                <div class="info-icon"><i class="fas fa-location-dot"></i></div>
+                                <div class="info-texts">
+                                    <span class="info-title">Based In</span>
+                                    <span class="info-detail">Maharashtra, India</span>
+                                </div>
+                            </div>
+                            <div class="info-action-btn"><i class="fas fa-globe"></i></div>
+                        </div>
+
+                        <a href="https://wa.me/919112936409" target="_blank" rel="noopener" class="contact-info-card">
+                            <div class="info-card-left">
+                                <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                                <div class="info-texts">
+                                    <span class="info-title">Phone / WhatsApp</span>
+                                    <span class="info-detail">+91 91129 36409</span>
+                                </div>
+                            </div>
+                            <div class="info-action-btn"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Form -->
+                <div class="contact-form-card">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="e.g. Waqas Bhatti" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-textarea" placeholder="Tell me about your project or idea..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit-btn">
+                            <span>Send Message</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="portfolio-footer">
+                <div class="footer-left">
+                    <p>© 2025 Arshad Shafik Shaikh. All Rights Reserved.</p>
+                </div>
+                <div class="footer-right">
+                    <span id="local-time" class="location-tag">00:00:00 IST</span>
+                    <a href="#hero" class="back-to-top-btn">
+                        <span>Back To Top</span>
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         CORE LIBRARIES (LOTTIE, GSAP, SCROLLTRIGGER, LENIS, THREE.JS)
+         ====================================================================== -->
+    <!-- Lottie Web for smooth "hello" handwriting animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+    <!-- Three.js for 3D WebGL scenes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Main Portfolio Script -->
+    <script src="portfolio.js"></script>
+</body>
+</html>
