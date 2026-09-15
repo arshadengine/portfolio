@@ -1,4 +1,4 @@
-﻿# Arshad Shaikh — Interactive Portfolio
+# Arshad Shaikh — Interactive Portfolio
 
 > A modern, high-performance developer portfolio featuring cinematic motion design, fluid typography, and interactive web experiences.
 
@@ -39,10 +39,10 @@ No build step or complex dependencies required. Simply serve the repository usin
 
 ```bash
 # Using Python
-python -m http.server 8000
+python -m http.server -d public 8000
 
 # Or using Node.js (npx)
-npx serve .
+npx serve public
 ```
 
 Navigate to `http://localhost:8000` in your browser.
