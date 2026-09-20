@@ -613,8 +613,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 user_name: nameVal,
                 to_name: nameVal,
                 email: emailVal,
+                to_email: emailVal,
                 from_email: emailVal,
                 user_email: emailVal,
+                recipient: emailVal,
                 reply_to: emailVal,
                 message: msgVal,
                 contact_time: new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
