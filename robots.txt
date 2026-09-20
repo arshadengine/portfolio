@@ -1,0 +1,8 @@
+﻿# Robots.txt for Arshad Shaikh Portfolio
+# Primary: https://arshadshaikh-portfolio.web.app
+
+User-agent: *
+Allow: /
+
+# Search Engine & AI Model Discovery
+Sitemap: https://arshadshaikh-portfolio.web.app/sitemap.xml
