@@ -574,28 +574,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------------------------
-    // 12. CONTACT FORM SUBMISSION FEEDBACK
+    // 12. CONTACT FORM SUBMISSION WITH EMAILJS AUTO-GREETING
     // --------------------------------------------------------------------------
+    if (typeof emailjs !== 'undefined') {
+        try {
+            emailjs.init({ publicKey: 'jg-LJ7eBdmgDn5wJD' });
+        } catch (err) {
+            console.warn('EmailJS init:', err);
+        }
+    }
+
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = contactForm.querySelector('.form-submit-btn');
             const originalText = submitBtn.innerHTML;
 
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            const nameVal = nameInput ? nameInput.value.trim() : '';
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+            const msgVal = messageInput ? messageInput.value.trim() : '';
+
+            if (!nameVal || !emailVal || !msgVal) {
+                showToast('Please complete all fields before sending.');
+                return;
+            }
+
             submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
             submitBtn.disabled = true;
 
-            setTimeout(() => {
+            const templateParams = {
+                name: nameVal,
+                from_name: nameVal,
+                user_name: nameVal,
+                to_name: nameVal,
+                email: emailVal,
+                from_email: emailVal,
+                user_email: emailVal,
+                reply_to: emailVal,
+                message: msgVal,
+                contact_time: new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+            };
+
+            try {
+                if (typeof emailjs === 'undefined') {
+                    throw new Error('EmailJS SDK not loaded');
+                }
+
+                await emailjs.send('service_arshad', 'template_01m26dd', templateParams);
+
                 submitBtn.innerHTML = 'Message Sent! <i class="fas fa-check"></i>';
-                showToast('Thank you! Your message has been sent successfully.');
+                showToast(`Thank you, ${nameVal}! Check your inbox for confirmation.`);
                 contactForm.reset();
 
                 setTimeout(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
-                }, 3500);
-            }, 1200);
+                }, 4000);
+            } catch (error) {
+                console.error('EmailJS Submission Error:', error);
+                submitBtn.innerHTML = 'Failed to Send <i class="fas fa-circle-exclamation"></i>';
+                showToast('Unable to send. Please email directly at shaikharshad92316@gmail.com');
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 4000);
+            }
         });
     }
 
