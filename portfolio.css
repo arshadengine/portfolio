@@ -672,7 +672,8 @@ body.cursor-input-hover .cursor-ring {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.6rem, 1.4vw, 1.4rem);
+    flex-wrap: wrap;
+    gap: clamp(0.5rem, 1.2vw, 1.2rem);
     margin-top: clamp(0.7rem, 1.3vh, 1.3rem);
     font-size: clamp(0.65rem, 0.76vw, 0.82rem);
     font-weight: 600;
@@ -684,6 +685,67 @@ body.cursor-input-hover .cursor-ring {
 .hero-tag-pills span.dot {
     color: var(--accent-gold);
     font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+}
+
+/* Hero Founder of Taskas Luxury Badge */
+.hero-founder-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.36rem 0.95rem;
+    background: rgba(230, 198, 135, 0.08);
+    border: 1px solid rgba(230, 198, 135, 0.38);
+    border-radius: 999px;
+    color: var(--accent-gold-light);
+    font-size: clamp(0.66rem, 0.76vw, 0.82rem);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 0 16px rgba(230, 198, 135, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.35s var(--ease-out-expo);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.hero-founder-badge:hover {
+    background: rgba(230, 198, 135, 0.2);
+    border-color: var(--accent-gold);
+    color: #ffffff;
+    box-shadow: 0 0 24px rgba(230, 198, 135, 0.35);
+    transform: translateY(-2px);
+}
+
+.founder-badge-sparkle {
+    color: var(--accent-gold);
+    font-size: 0.85em;
+    display: inline-block;
+    filter: drop-shadow(0 0 6px rgba(230, 198, 135, 0.8));
+    animation: goldStarPulse 2.8s infinite ease-in-out;
+}
+
+.founder-badge-text {
+    color: inherit;
+    letter-spacing: 0.18em;
+}
+
+.founder-badge-arrow {
+    font-size: 0.82em;
+    color: var(--accent-gold);
+    transition: transform 0.25s ease;
+    display: inline-block;
+}
+
+.hero-founder-badge:hover .founder-badge-arrow {
+    transform: translate(2px, -2px);
+    color: #ffffff;
+}
+
+@keyframes goldStarPulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.22); opacity: 1; filter: drop-shadow(0 0 10px rgba(230, 198, 135, 1)); }
 }
 
 /* Scroll To Explore Indicator */
@@ -1062,6 +1124,54 @@ body.cursor-input-hover .cursor-ring {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
+}
+
+/* About Status Pill - Founder of Taskas */
+.status-pill.status-pill-founder {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 1.1rem;
+    background: rgba(230, 198, 135, 0.09);
+    border: 1px solid rgba(230, 198, 135, 0.35);
+    color: var(--accent-gold-light);
+    font-size: clamp(0.66rem, 0.75vw, 0.78rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 0 14px rgba(230, 198, 135, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s var(--ease-out-expo);
+    cursor: pointer;
+}
+
+.status-pill.status-pill-founder:hover {
+    background: rgba(230, 198, 135, 0.2);
+    border-color: var(--accent-gold);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(230, 198, 135, 0.25);
+}
+
+.status-pill.status-pill-founder .status-dot-gold {
+    color: var(--accent-gold);
+    font-size: 0.85em;
+    display: inline-block;
+    filter: drop-shadow(0 0 5px rgba(230, 198, 135, 0.7));
+}
+
+.status-pill.status-pill-founder .status-pill-arrow {
+    font-size: 0.82em;
+    color: var(--accent-gold);
+    transition: transform 0.25s ease;
+    display: inline-block;
+}
+
+.status-pill.status-pill-founder:hover .status-pill-arrow {
+    transform: translate(2px, -2px);
+    color: #ffffff;
 }
 
 /* ==========================================================================
