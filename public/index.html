@@ -539,12 +539,13 @@
             <!-- Project 01: NEXUS AI Virtual Assistant -->
             <article class="project-card card-theme-1">
                 <div class="card-info">
-                    <span class="card-category-tag"><i class="fas fa-microchip"></i> AI & SPEECH RECOGNITION — 01</span>
+                    <span class="card-category-tag"><i class="fas fa-robot"></i> INTERACTIVE 3D & AI ROBOTICS — 01</span>
                     <h3 class="card-title">NEXUS Virtual Assistant</h3>
                     <p class="card-desc">
-                        An advanced AI-powered voice assistant capable of real-time natural language processing, continuous speech recognition, task automation, and intelligent conversational responses.
+                        An advanced AI-powered assistant and interactive 3D humanoid robotics interface featuring real-time natural language processing, spatial head tracking, continuous speech recognition, and intelligent task automation.
                     </p>
                     <div class="card-tech-list">
+                        <span class="card-tech-badge">Interactive 3D</span>
                         <span class="card-tech-badge">Python</span>
                         <span class="card-tech-badge">SpeechRecognition</span>
                         <span class="card-tech-badge">NLP</span>
@@ -555,10 +556,43 @@
                         <a href="https://github.com/arshadengine/Nexus" target="_blank" rel="noopener noreferrer" class="card-btn secondary"><i class="fab fa-github"></i> Code ↗</a>
                     </div>
                 </div>
-                <a href="https://github.com/arshadengine/Nexus" target="_blank" rel="noopener noreferrer" class="card-preview-wrap" aria-label="View NEXUS Virtual Assistant on GitHub">
-                    <div class="card-preview-inner">
-                        <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80" alt="NEXUS AI Assistant" class="card-preview-img">
-                        <div class="card-mini-badge">
+                <div class="card-preview-wrap card-3d-interactive-wrap" id="nexus-3d-wrapper" aria-label="Interactive 3D Robot Experience">
+                    <div class="card-preview-inner" style="position: relative; overflow: hidden; width: 100%; height: 100%;">
+                        <!-- Spotlight subtle background glow -->
+                        <div class="nexus-spotlight" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 60% 40%, rgba(120, 119, 198, 0.15), rgba(0, 0, 0, 0) 70%); z-index: 1;"></div>
+
+                        <!-- 3D Spline Canvas Container -->
+                        <div id="nexus-canvas-container" class="card-3d-canvas-container" style="position: absolute; inset: 0; z-index: 2;">
+                            <canvas id="nexus-robot-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                        </div>
+                        
+                        <!-- Initial / Loading Poster Image -->
+                        <div id="nexus-poster" class="classroom-poster" style="z-index: 3;">
+                            <img src="images/robot-cover.png" alt="NEXUS 3D Robot Assistant" class="card-preview-img">
+                            <div class="classroom-load-overlay">
+                                <div class="classroom-load-spinner"><i class="fas fa-robot fa-spin"></i></div>
+                                <span class="classroom-load-text" id="nexus-load-text">3D AI Robot Interface</span>
+                                <button type="button" id="start-nexus-3d-btn" class="classroom-start-btn">
+                                    <i class="fas fa-play"></i> Interact in 3D
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 3D Floating HUD & Controls Overlay -->
+                        <div class="classroom-hud" id="nexus-hud" style="display: none; z-index: 4;">
+                            <div class="classroom-hud-pill">
+                                <span class="pulse-dot"></span>
+                                <span>3D ROBOT • MOVE CURSOR TO INTERACT</span>
+                            </div>
+                            <div class="classroom-hud-actions">
+                                <a href="https://github.com/arshadengine/Nexus" target="_blank" rel="noopener noreferrer" class="classroom-hud-btn" title="View NEXUS Code on GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Mini Floating Badge in corner -->
+                        <a href="https://github.com/arshadengine/Nexus" target="_blank" rel="noopener noreferrer" class="card-mini-badge" style="z-index: 5;" aria-label="View NEXUS Project on GitHub">
                             <svg viewBox="0 0 100 100">
                                 <path id="pCircle1" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
                                 <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
@@ -566,9 +600,9 @@
                                 </text>
                             </svg>
                             <i class="fas fa-arrow-up-right-from-square"></i>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </article>
 
             <!-- Project 02: Creative 3D Portfolio -->
@@ -916,6 +950,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <!-- Main Portfolio Script -->
-    <script src="portfolio.js?v=4"></script>
+    <script src="portfolio.js?v=5"></script>
 </body>
 </html>

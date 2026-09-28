@@ -792,6 +792,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------------------------
+    // 8C. INTERACTIVE 3D ROBOT VIEWER (CARD 01 - NEXUS)
+    // --------------------------------------------------------------------------
+    const nexusWrap = document.getElementById('nexus-3d-wrapper');
+    const nexusCanvas = document.getElementById('nexus-robot-canvas');
+    const nexusCanvasContainer = document.getElementById('nexus-canvas-container');
+    const nexusPoster = document.getElementById('nexus-poster');
+    const nexusLoadText = document.getElementById('nexus-load-text');
+    const startNexusBtn = document.getElementById('start-nexus-3d-btn');
+    const nexusHud = document.getElementById('nexus-hud');
+
+    if (nexusWrap && nexusCanvas) {
+        let isNexusLoaded = false;
+        let isNexusLoading = false;
+        let splineApp = null;
+
+        async function initNexus3D() {
+            if (isNexusLoading || isNexusLoaded) return;
+            isNexusLoading = true;
+
+            if (nexusLoadText) nexusLoadText.textContent = 'Loading 3D Robot...';
+            const spinner = nexusPoster ? nexusPoster.querySelector('.classroom-load-spinner') : null;
+            if (spinner) spinner.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            if (startNexusBtn) startNexusBtn.style.display = 'none';
+
+            try {
+                const { Application } = await import('https://unpkg.com/@splinetool/runtime@1.9.75/build/runtime.js');
+                splineApp = new Application(nexusCanvas);
+                await splineApp.load('https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode');
+
+                isNexusLoaded = true;
+                isNexusLoading = false;
+
+                if (nexusPoster) nexusPoster.classList.add('hidden');
+                if (nexusCanvasContainer) nexusCanvasContainer.classList.add('loaded');
+                if (nexusHud) nexusHud.style.display = 'flex';
+
+                window.__nexusRobot = splineApp;
+            } catch (err) {
+                console.error('Failed to load Spline 3D robot:', err);
+                isNexusLoading = false;
+                if (nexusLoadText) nexusLoadText.textContent = 'Tap to view on GitHub';
+                if (startNexusBtn) {
+                    startNexusBtn.style.display = 'inline-flex';
+                    startNexusBtn.innerHTML = '<i class="fab fa-github"></i> View on GitHub';
+                    startNexusBtn.onclick = () => window.open('https://github.com/arshadengine/Nexus', '_blank');
+                }
+            }
+        }
+
+        if (startNexusBtn) {
+            startNexusBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                initNexus3D();
+            });
+        }
+
+        if (nexusWrap) {
+            nexusWrap.addEventListener('click', () => {
+                if (!isNexusLoaded && !isNexusLoading) {
+                    initNexus3D();
+                }
+            });
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !isNexusLoaded && !isNexusLoading) {
+                        initNexus3D();
+                    }
+                });
+            }, { rootMargin: '100px 0px 100px 0px' });
+            observer.observe(nexusWrap);
+        } else {
+            initNexus3D();
+        }
+    }
+
+    // --------------------------------------------------------------------------
     // 9. EXPERTISE HOVER PREVIEW CARDS
     // --------------------------------------------------------------------------
     const serviceRows = document.querySelectorAll('.service-row');
