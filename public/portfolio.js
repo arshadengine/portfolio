@@ -496,6 +496,273 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------------------------
+    // 8B. INTERACTIVE 3D CLASSROOM VIEWER (CARD 06)
+    // --------------------------------------------------------------------------
+    const classroomWrap = document.getElementById('classroom-3d-wrapper');
+    const classroomCanvasContainer = document.getElementById('classroom-canvas-container');
+    const classroomPoster = document.getElementById('classroom-poster');
+    const classroomLoadText = document.getElementById('classroom-load-text');
+    const start3dBtn = document.getElementById('start-3d-btn');
+    const classroomHud = document.getElementById('classroom-hud');
+    const classroomResetBtn = document.getElementById('classroom-reset-btn');
+    const classroomSpinBtn = document.getElementById('classroom-spin-btn');
+
+    if (classroomWrap && classroomCanvasContainer && typeof THREE !== 'undefined') {
+        let classroomScene, classroomCamera, classroomRenderer, classroomControls;
+        let classroomModel = null;
+        let isClassroomLoaded = false;
+        let isClassroomLoading = false;
+        let isCardVisible = true;
+        let autoRotateActive = true;
+        let resumeRotateTimeout = null;
+        const defaultCamPos = new THREE.Vector3();
+        const defaultTarget = new THREE.Vector3();
+
+        function initClassroom3D() {
+            if (isClassroomLoading || isClassroomLoaded) return;
+            isClassroomLoading = true;
+
+            if (classroomLoadText) classroomLoadText.textContent = 'Loading 3D Classroom... 0%';
+            const spinner = classroomPoster ? classroomPoster.querySelector('.classroom-load-spinner') : null;
+            if (spinner) spinner.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            if (start3dBtn) start3dBtn.style.display = 'none';
+
+            // 1. Setup Three Scene
+            classroomScene = new THREE.Scene();
+            classroomScene.background = new THREE.Color(0x0a0a0f);
+            classroomScene.fog = new THREE.FogExp2(0x0a0a0f, 0.015);
+
+            const width = classroomCanvasContainer.clientWidth || classroomWrap.clientWidth || 600;
+            const height = classroomCanvasContainer.clientHeight || classroomWrap.clientHeight || 400;
+
+            classroomCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 500);
+
+            classroomRenderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: false,
+                powerPreference: 'high-performance'
+            });
+            classroomRenderer.setSize(width, height);
+            classroomRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            classroomRenderer.shadowMap.enabled = true;
+            classroomRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            classroomRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+            classroomRenderer.toneMappingExposure = 1.25;
+
+            classroomCanvasContainer.appendChild(classroomRenderer.domElement);
+
+            // 2. Lighting for cinematic classroom depth
+            const ambientLight = new THREE.AmbientLight(0xfff6ea, 1.4);
+            classroomScene.add(ambientLight);
+
+            const hemiLight = new THREE.HemisphereLight(0xddeeff, 0x1f1f2a, 0.9);
+            classroomScene.add(hemiLight);
+
+            const sunLight = new THREE.DirectionalLight(0xffeedd, 2.2);
+            sunLight.position.set(12, 18, 14);
+            sunLight.castShadow = true;
+            classroomScene.add(sunLight);
+
+            const rimLight = new THREE.PointLight(0xe6c687, 1.5, 30);
+            rimLight.position.set(-10, 8, -10);
+            classroomScene.add(rimLight);
+
+            // 3. OrbitControls
+            if (typeof THREE.OrbitControls !== 'undefined') {
+                classroomControls = new THREE.OrbitControls(classroomCamera, classroomRenderer.domElement);
+                classroomControls.enableDamping = true;
+                classroomControls.dampingFactor = 0.06;
+                classroomControls.autoRotate = true;
+                classroomControls.autoRotateSpeed = 0.9;
+                classroomControls.enableZoom = false; // Prevent trapping page scroll
+                classroomControls.maxPolarAngle = Math.PI / 2 + 0.05;
+
+                classroomControls.addEventListener('start', () => {
+                    classroomControls.autoRotate = false;
+                    if (resumeRotateTimeout) clearTimeout(resumeRotateTimeout);
+                });
+
+                classroomControls.addEventListener('end', () => {
+                    if (autoRotateActive) {
+                        resumeRotateTimeout = setTimeout(() => {
+                            if (autoRotateActive && classroomControls) {
+                                classroomControls.autoRotate = true;
+                            }
+                        }, 3500);
+                    }
+                });
+            }
+
+            // 4. Load GLB Model
+            const gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader() : null;
+            const modelUrl = 'models/classroom.glb';
+            const fallbackUrl = 'https://raw.githubusercontent.com/arshadengine/3D-ai-school-threejs/master/public/models/classroom.glb';
+
+            if (!gltfLoader) {
+                console.warn('GLTFLoader not available');
+                return;
+            }
+
+            function loadModel(url, isFallback = false) {
+                gltfLoader.load(
+                    url,
+                    (gltf) => {
+                        classroomModel = gltf.scene;
+
+                        const box = new THREE.Box3().setFromObject(classroomModel);
+                        const center = box.getCenter(new THREE.Vector3());
+                        const size = box.getSize(new THREE.Vector3());
+
+                        classroomModel.position.x = -center.x;
+                        classroomModel.position.y = -box.min.y;
+                        classroomModel.position.z = -center.z;
+
+                        classroomScene.add(classroomModel);
+
+                        classroomModel.traverse((child) => {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                            }
+                        });
+
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const fov = classroomCamera.fov * (Math.PI / 180);
+                        const cameraDist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.35;
+
+                        classroomCamera.position.set(cameraDist * 0.75, cameraDist * 0.55, cameraDist * 0.9);
+                        classroomCamera.lookAt(0, size.y * 0.35, 0);
+
+                        defaultCamPos.copy(classroomCamera.position);
+                        defaultTarget.set(0, size.y * 0.35, 0);
+
+                        if (classroomControls) {
+                            classroomControls.target.copy(defaultTarget);
+                            classroomControls.update();
+                        }
+
+                        isClassroomLoaded = true;
+                        isClassroomLoading = false;
+
+                        if (classroomPoster) classroomPoster.classList.add('hidden');
+                        if (classroomCanvasContainer) classroomCanvasContainer.classList.add('loaded');
+                        if (classroomHud) classroomHud.style.display = 'flex';
+
+                        animateClassroom();
+                    },
+                    (xhr) => {
+                        if (xhr.lengthComputable && xhr.total > 0) {
+                            const percent = Math.min(99, Math.round((xhr.loaded / xhr.total) * 100));
+                            if (classroomLoadText) classroomLoadText.textContent = `Loading 3D Classroom... ${percent}%`;
+                        } else {
+                            if (classroomLoadText) classroomLoadText.textContent = 'Loading 3D Geometry...';
+                        }
+                    },
+                    (err) => {
+                        console.error('Error loading 3D classroom GLB from ' + url, err);
+                        if (!isFallback) {
+                            if (classroomLoadText) classroomLoadText.textContent = 'Retrying from CDN mirror...';
+                            loadModel(fallbackUrl, true);
+                        } else {
+                            if (classroomLoadText) classroomLoadText.textContent = 'Tap to open project on GitHub';
+                            if (start3dBtn) {
+                                start3dBtn.style.display = 'inline-flex';
+                                start3dBtn.innerHTML = '<i class="fab fa-github"></i> View on GitHub';
+                                start3dBtn.onclick = () => window.open('https://github.com/arshadengine/3D-ai-school-threejs', '_blank');
+                            }
+                        }
+                    }
+                );
+            }
+
+            loadModel(modelUrl);
+        }
+
+        function animateClassroom() {
+            if (!isClassroomLoaded) return;
+            requestAnimationFrame(animateClassroom);
+
+            if (isCardVisible) {
+                if (classroomControls) classroomControls.update();
+                classroomRenderer.render(classroomScene, classroomCamera);
+            }
+        }
+
+        if (classroomResetBtn) {
+            classroomResetBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!classroomCamera || !classroomControls) return;
+                gsap.to(classroomCamera.position, {
+                    x: defaultCamPos.x,
+                    y: defaultCamPos.y,
+                    z: defaultCamPos.z,
+                    duration: 1.2,
+                    ease: 'power3.inOut'
+                });
+                gsap.to(classroomControls.target, {
+                    x: defaultTarget.x,
+                    y: defaultTarget.y,
+                    z: defaultTarget.z,
+                    duration: 1.2,
+                    ease: 'power3.inOut',
+                    onUpdate: () => classroomControls.update()
+                });
+            });
+        }
+
+        if (classroomSpinBtn) {
+            classroomSpinBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                autoRotateActive = !autoRotateActive;
+                if (classroomControls) {
+                    classroomControls.autoRotate = autoRotateActive;
+                }
+                classroomSpinBtn.style.color = autoRotateActive ? 'var(--accent-gold, #e6c687)' : 'var(--text-secondary, #71717a)';
+            });
+        }
+
+        if (start3dBtn) {
+            start3dBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                initClassroom3D();
+            });
+        }
+
+        if (classroomWrap) {
+            classroomWrap.addEventListener('click', () => {
+                if (!isClassroomLoaded && !isClassroomLoading) {
+                    initClassroom3D();
+                }
+            });
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    isCardVisible = entry.isIntersecting;
+                    if (entry.isIntersecting && !isClassroomLoaded && !isClassroomLoading) {
+                        initClassroom3D();
+                    }
+                });
+            }, { rootMargin: '100px 0px 100px 0px' });
+            observer.observe(classroomWrap);
+        } else {
+            initClassroom3D();
+        }
+
+        window.addEventListener('resize', () => {
+            if (!classroomRenderer || !classroomCamera || !classroomCanvasContainer) return;
+            const w = classroomCanvasContainer.clientWidth;
+            const h = classroomCanvasContainer.clientHeight;
+            if (w && h) {
+                classroomCamera.aspect = w / h;
+                classroomCamera.updateProjectionMatrix();
+                classroomRenderer.setSize(w, h);
+            }
+        });
+    }
+
+    // --------------------------------------------------------------------------
     // 9. EXPERTISE HOVER PREVIEW CARDS
     // --------------------------------------------------------------------------
     const serviceRows = document.querySelectorAll('.service-row');

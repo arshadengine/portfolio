@@ -730,10 +730,41 @@
                         <a href="https://github.com/arshadengine/3D-ai-school-threejs" target="_blank" rel="noopener noreferrer" class="card-btn secondary"><i class="fab fa-github"></i> Code ↗</a>
                     </div>
                 </div>
-                <a href="https://github.com/arshadengine/3D-ai-school-threejs" target="_blank" rel="noopener noreferrer" class="card-preview-wrap" aria-label="View 3D AI School on GitHub">
-                    <div class="card-preview-inner">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80" alt="3D AI School Three.js" class="card-preview-img">
-                        <div class="card-mini-badge">
+                <div class="card-preview-wrap card-3d-interactive-wrap" id="classroom-3d-wrapper" aria-label="Interactive 3D Classroom Experience">
+                    <div class="card-preview-inner" style="position: relative; overflow: hidden; width: 100%; height: 100%;">
+                        <!-- 3D Canvas Container -->
+                        <div id="classroom-canvas-container" class="card-3d-canvas-container"></div>
+                        
+                        <!-- Initial / Loading Poster Image -->
+                        <div id="classroom-poster" class="classroom-poster">
+                            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80" alt="3D AI Classroom Three.js" class="card-preview-img">
+                            <div class="classroom-load-overlay">
+                                <div class="classroom-load-spinner"><i class="fas fa-cube fa-spin"></i></div>
+                                <span class="classroom-load-text" id="classroom-load-text">3D Classroom Environment</span>
+                                <button type="button" id="start-3d-btn" class="classroom-start-btn">
+                                    <i class="fas fa-play"></i> Interact in 3D
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 3D Floating HUD & Controls Overlay -->
+                        <div class="classroom-hud" id="classroom-hud" style="display: none;">
+                            <div class="classroom-hud-pill">
+                                <span class="pulse-dot"></span>
+                                <span>3D INTERACTIVE • DRAG TO ROTATE</span>
+                            </div>
+                            <div class="classroom-hud-actions">
+                                <button type="button" class="classroom-hud-btn" id="classroom-reset-btn" title="Reset Camera View">
+                                    <i class="fas fa-rotate-left"></i>
+                                </button>
+                                <button type="button" class="classroom-hud-btn" id="classroom-spin-btn" title="Toggle Auto-Rotate">
+                                    <i class="fas fa-arrows-rotate"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Circular Floating Badge (Preserved luxury aesthetic) -->
+                        <a href="https://github.com/arshadengine/3D-ai-school-threejs" target="_blank" rel="noopener noreferrer" class="card-mini-badge" style="z-index: 6;" title="View Source on GitHub">
                             <svg viewBox="0 0 100 100">
                                 <path id="pCircle6" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent"/>
                                 <text font-size="9" font-weight="700" letter-spacing="2" fill="#e6c687">
@@ -741,9 +772,9 @@
                                 </text>
                             </svg>
                             <i class="fas fa-arrow-up-right-from-square"></i>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </article>
         </div>
     </section>
@@ -879,6 +910,8 @@
     <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
     <!-- Three.js for 3D WebGL scenes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <!-- EmailJS SDK for Instant Contact & Auto-Greeting Emails -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
