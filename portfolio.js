@@ -527,15 +527,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (spinner) spinner.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
             if (start3dBtn) start3dBtn.style.display = 'none';
 
-            // 1. Setup Three Scene
+            // 1. Setup Three Scene (Interior Daylight Classroom)
             classroomScene = new THREE.Scene();
-            classroomScene.background = new THREE.Color(0x0a0a0f);
-            classroomScene.fog = new THREE.FogExp2(0x0a0a0f, 0.015);
+            classroomScene.background = new THREE.Color(0xbcd9f2); // Daylight sky through windows
 
             const width = classroomCanvasContainer.clientWidth || classroomWrap.clientWidth || 600;
             const height = classroomCanvasContainer.clientHeight || classroomWrap.clientHeight || 400;
 
             classroomCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 500);
+            classroomCamera.position.set(0, -0.2, 5.5);
 
             classroomRenderer = new THREE.WebGLRenderer({
                 antialias: true,
@@ -544,38 +544,43 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             classroomRenderer.setSize(width, height);
             classroomRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            classroomRenderer.shadowMap.enabled = true;
-            classroomRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
             classroomRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-            classroomRenderer.toneMappingExposure = 1.25;
+            classroomRenderer.toneMappingExposure = 1.35;
 
             classroomCanvasContainer.appendChild(classroomRenderer.domElement);
 
-            // 2. Lighting for cinematic classroom depth
-            const ambientLight = new THREE.AmbientLight(0xfff6ea, 1.4);
+            // 2. Interior Daylight Lighting (Vibrant & Warm like the actual project)
+            const ambientLight = new THREE.AmbientLight(0xfff0e6, 2.0);
             classroomScene.add(ambientLight);
 
-            const hemiLight = new THREE.HemisphereLight(0xddeeff, 0x1f1f2a, 0.9);
+            const hemiLight = new THREE.HemisphereLight(0xffffff, 0xb89a7a, 1.6);
             classroomScene.add(hemiLight);
 
-            const sunLight = new THREE.DirectionalLight(0xffeedd, 2.2);
-            sunLight.position.set(12, 18, 14);
-            sunLight.castShadow = true;
+            const sunLight = new THREE.DirectionalLight(0xffffff, 2.6);
+            sunLight.position.set(-15, 20, 10);
             classroomScene.add(sunLight);
 
-            const rimLight = new THREE.PointLight(0xe6c687, 1.5, 30);
-            rimLight.position.set(-10, 8, -10);
-            classroomScene.add(rimLight);
+            const fillLight = new THREE.PointLight(0xfff5ea, 1.8, 40);
+            fillLight.position.set(0, 5, 0);
+            classroomScene.add(fillLight);
 
-            // 3. OrbitControls
+            // 3. OrbitControls with perfect interior viewpoint
             if (typeof THREE.OrbitControls !== 'undefined') {
                 classroomControls = new THREE.OrbitControls(classroomCamera, classroomRenderer.domElement);
                 classroomControls.enableDamping = true;
                 classroomControls.dampingFactor = 0.06;
-                classroomControls.autoRotate = true;
-                classroomControls.autoRotateSpeed = 0.9;
+                classroomControls.autoRotate = false;
+                classroomControls.autoRotateSpeed = 0.6;
                 classroomControls.enableZoom = false; // Prevent trapping page scroll
-                classroomControls.maxPolarAngle = Math.PI / 2 + 0.05;
+                classroomControls.minDistance = 1.5;
+                classroomControls.maxDistance = 22;
+                classroomControls.minPolarAngle = Math.PI * 0.2;
+                classroomControls.maxPolarAngle = Math.PI * 0.58;
+
+                classroomControls.target.set(-4.2, -0.5, -16);
+                defaultCamPos.set(0, -0.2, 5.5);
+                defaultTarget.set(-4.2, -0.5, -16);
+                classroomControls.update();
 
                 classroomControls.addEventListener('start', () => {
                     classroomControls.autoRotate = false;
@@ -588,58 +593,68 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (autoRotateActive && classroomControls) {
                                 classroomControls.autoRotate = true;
                             }
-                        }, 3500);
+                        }, 4000);
                     }
                 });
             }
 
-            // 4. Load GLB Model
+            // 4. Load Models: Classroom + Teacher Avatar (Emilian)
             const gltfLoader = typeof THREE.GLTFLoader !== 'undefined' ? new THREE.GLTFLoader() : null;
             const modelUrl = 'models/classroom.glb';
             const fallbackUrl = 'https://raw.githubusercontent.com/arshadengine/3D-ai-school-threejs/master/public/models/classroom.glb';
+            const avatarUrl = 'models/emilian.glb';
+            const fallbackAvatarUrl = 'https://raw.githubusercontent.com/arshadengine/3D-ai-school-threejs/master/public/models/emilian.glb';
+
+            let classroomMixer = null;
+            const clock = new THREE.Clock();
 
             if (!gltfLoader) {
                 console.warn('GLTFLoader not available');
                 return;
             }
 
+            // Load Teacher Avatar (Emilian)
+            function loadAvatar(url, isFallback = false) {
+                gltfLoader.load(
+                    url,
+                    (gltf) => {
+                        const avatar = gltf.scene;
+                        avatar.scale.set(7, 7, 7);
+                        avatar.position.set(-12, -7.95, -14);
+                        avatar.rotation.set(0, 1, 0);
+                        classroomScene.add(avatar);
+
+                        if (gltf.animations && gltf.animations.length > 0) {
+                            classroomMixer = new THREE.AnimationMixer(avatar);
+                            const clip = gltf.animations.find((a) => a.name.includes('Idle') || a.name.includes('idle')) || gltf.animations[0];
+                            if (clip) {
+                                classroomMixer.clipAction(clip).play();
+                            }
+                        }
+                    },
+                    undefined,
+                    (err) => {
+                        console.warn('Could not load avatar from ' + url, err);
+                        if (!isFallback) loadAvatar(fallbackAvatarUrl, true);
+                    }
+                );
+            }
+
+            // Load Classroom
             function loadModel(url, isFallback = false) {
                 gltfLoader.load(
                     url,
                     (gltf) => {
                         classroomModel = gltf.scene;
 
-                        const box = new THREE.Box3().setFromObject(classroomModel);
-                        const center = box.getCenter(new THREE.Vector3());
-                        const size = box.getSize(new THREE.Vector3());
-
-                        classroomModel.position.x = -center.x;
-                        classroomModel.position.y = -box.min.y;
-                        classroomModel.position.z = -center.z;
+                        // Position matching original Experience.jsx
+                        classroomModel.position.set(0, -8, 0);
+                        classroomModel.rotation.set(0, Math.PI, 0);
 
                         classroomScene.add(classroomModel);
 
-                        classroomModel.traverse((child) => {
-                            if (child.isMesh) {
-                                child.castShadow = true;
-                                child.receiveShadow = true;
-                            }
-                        });
-
-                        const maxDim = Math.max(size.x, size.y, size.z);
-                        const fov = classroomCamera.fov * (Math.PI / 180);
-                        const cameraDist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.35;
-
-                        classroomCamera.position.set(cameraDist * 0.75, cameraDist * 0.55, cameraDist * 0.9);
-                        classroomCamera.lookAt(0, size.y * 0.35, 0);
-
-                        defaultCamPos.copy(classroomCamera.position);
-                        defaultTarget.set(0, size.y * 0.35, 0);
-
-                        if (classroomControls) {
-                            classroomControls.target.copy(defaultTarget);
-                            classroomControls.update();
-                        }
+                        // Also load the Teacher Avatar
+                        loadAvatar(avatarUrl);
 
                         isClassroomLoaded = true;
                         isClassroomLoading = false;
@@ -655,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const percent = Math.min(99, Math.round((xhr.loaded / xhr.total) * 100));
                             if (classroomLoadText) classroomLoadText.textContent = `Loading 3D Classroom... ${percent}%`;
                         } else {
-                            if (classroomLoadText) classroomLoadText.textContent = 'Loading 3D Geometry...';
+                            if (classroomLoadText) classroomLoadText.textContent = 'Loading 3D Classroom...';
                         }
                     },
                     (err) => {
@@ -683,6 +698,9 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animateClassroom);
 
             if (isCardVisible) {
+                if (typeof clock !== 'undefined' && classroomMixer) {
+                    classroomMixer.update(clock.getDelta());
+                }
                 if (classroomControls) classroomControls.update();
                 classroomRenderer.render(classroomScene, classroomCamera);
             }
