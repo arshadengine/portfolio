@@ -510,13 +510,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (classroomWrap && classroomCanvasContainer && typeof THREE !== 'undefined') {
         let classroomScene, classroomCamera, classroomRenderer, classroomControls;
         let classroomModel = null;
+        let classroomMixer = null;
+        let classroomClock = new THREE.Clock();
         let isClassroomLoaded = false;
         let isClassroomLoading = false;
         let isCardVisible = true;
-        let autoRotateActive = true;
+        let autoRotateActive = false;
         let resumeRotateTimeout = null;
-        const defaultCamPos = new THREE.Vector3();
-        const defaultTarget = new THREE.Vector3();
+        const defaultCamPos = new THREE.Vector3(0, -0.2, 5.5);
+        const defaultTarget = new THREE.Vector3(-0.5, -0.6, -10);
 
         function initClassroom3D() {
             if (isClassroomLoading || isClassroomLoaded) return;
@@ -534,8 +536,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const width = classroomCanvasContainer.clientWidth || classroomWrap.clientWidth || 600;
             const height = classroomCanvasContainer.clientHeight || classroomWrap.clientHeight || 400;
 
-            classroomCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 500);
-            classroomCamera.position.set(0, -0.2, 5.5);
+            classroomCamera = new THREE.PerspectiveCamera(65, width / height, 0.1, 500);
+            classroomCamera.position.copy(defaultCamPos);
 
             classroomRenderer = new THREE.WebGLRenderer({
                 antialias: true,
@@ -570,16 +572,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 classroomControls.enableDamping = true;
                 classroomControls.dampingFactor = 0.06;
                 classroomControls.autoRotate = false;
-                classroomControls.autoRotateSpeed = 0.6;
+                classroomControls.autoRotateSpeed = 0.5;
                 classroomControls.enableZoom = false; // Prevent trapping page scroll
-                classroomControls.minDistance = 1.5;
-                classroomControls.maxDistance = 22;
-                classroomControls.minPolarAngle = Math.PI * 0.2;
-                classroomControls.maxPolarAngle = Math.PI * 0.58;
+                classroomControls.minDistance = 2.0;
+                classroomControls.maxDistance = 20;
+                classroomControls.minPolarAngle = Math.PI * 0.25;
+                classroomControls.maxPolarAngle = Math.PI * 0.55;
+                classroomControls.minAzimuthAngle = -Math.PI * 0.35;
+                classroomControls.maxAzimuthAngle = Math.PI * 0.35;
 
-                classroomControls.target.set(-4.2, -0.5, -16);
-                defaultCamPos.set(0, -0.2, 5.5);
-                defaultTarget.set(-4.2, -0.5, -16);
+                classroomControls.target.copy(defaultTarget);
                 classroomControls.update();
 
                 classroomControls.addEventListener('start', () => {
@@ -605,9 +607,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const avatarUrl = 'models/emilian.glb';
             const fallbackAvatarUrl = 'https://raw.githubusercontent.com/arshadengine/3D-ai-school-threejs/master/public/models/emilian.glb';
 
-            let classroomMixer = null;
-            const clock = new THREE.Clock();
-
             if (!gltfLoader) {
                 console.warn('GLTFLoader not available');
                 return;
@@ -626,9 +625,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (gltf.animations && gltf.animations.length > 0) {
                             classroomMixer = new THREE.AnimationMixer(avatar);
-                            const clip = gltf.animations.find((a) => a.name.includes('Idle') || a.name.includes('idle')) || gltf.animations[0];
-                            if (clip) {
-                                classroomMixer.clipAction(clip).play();
+                            const idleClip = gltf.animations.find((a) => a.name.includes('Idle') || a.name.includes('idle')) || gltf.animations[0];
+                            if (idleClip) {
+                                const action = classroomMixer.clipAction(idleClip);
+                                action.reset().play();
                             }
                         }
                     },
@@ -662,6 +662,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (classroomPoster) classroomPoster.classList.add('hidden');
                         if (classroomCanvasContainer) classroomCanvasContainer.classList.add('loaded');
                         if (classroomHud) classroomHud.style.display = 'flex';
+
+                        // Expose runtime instance for inspection & verification
+                        window.__classroom = {
+                            scene: classroomScene,
+                            camera: classroomCamera,
+                            controls: classroomControls,
+                            mixer: classroomMixer,
+                            defaultCamPos,
+                            defaultTarget
+                        };
 
                         animateClassroom();
                     },
@@ -698,8 +708,9 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animateClassroom);
 
             if (isCardVisible) {
-                if (typeof clock !== 'undefined' && classroomMixer) {
-                    classroomMixer.update(clock.getDelta());
+                if (classroomMixer && classroomClock) {
+                    const delta = classroomClock.getDelta();
+                    classroomMixer.update(delta);
                 }
                 if (classroomControls) classroomControls.update();
                 classroomRenderer.render(classroomScene, classroomCamera);
