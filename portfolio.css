@@ -2272,3 +2272,448 @@ body.cursor-input-hover .cursor-ring {
     transform: scale(1.08);
 }
 
+/* ==========================================================================
+   REVISED RECRUITER-FOCUSED STYLES: EDUCATION, EXPERIENCE, RESUME, CASE STUDIES
+   ========================================================================== */
+
+/* Navbar Resume Button */
+.nav-resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: clamp(0.48rem, 0.6vw, 0.62rem) clamp(1rem, 1.3vw, 1.35rem);
+    border-radius: 999px;
+    border: 1px solid var(--accent-gold);
+    background: rgba(230, 198, 135, 0.1);
+    color: var(--accent-gold);
+    font-size: clamp(0.72rem, 0.8vw, 0.84rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 14px rgba(230, 198, 135, 0.15);
+}
+
+.nav-resume-btn:hover {
+    background: var(--accent-gold);
+    color: #0c0d10;
+    box-shadow: 0 0 22px rgba(230, 198, 135, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Hero AIML Eyebrow & Lead Copy */
+.hero-student-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(230, 198, 135, 0.3);
+    color: var(--accent-gold-light, #f0dfb8);
+    font-size: clamp(0.68rem, 0.78vw, 0.84rem);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: clamp(0.8rem, 1.5vh, 1.4rem);
+    backdrop-filter: blur(10px);
+}
+
+.hero-student-pill .pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+    animation: hudPulse 2s infinite;
+}
+
+.hero-bio-lead {
+    max-width: 780px;
+    margin: clamp(1rem, 2vh, 1.8rem) auto 0;
+    font-size: clamp(0.95rem, 1.25vw, 1.22rem);
+    line-height: 1.65;
+    color: #d4d4d8;
+    text-align: center;
+}
+
+.hero-bio-lead strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Hero CTA Group */
+.hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(0.75rem, 1.4vw, 1.3rem);
+    margin-top: clamp(1.4rem, 2.5vh, 2.4rem);
+}
+
+.hero-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: clamp(0.8rem, 1vw, 1rem) clamp(1.6rem, 2vw, 2.2rem);
+    border-radius: 999px;
+    background: var(--accent-gold);
+    color: #0c0d10;
+    font-size: clamp(0.82rem, 0.9vw, 0.92rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 25px rgba(230, 198, 135, 0.3);
+}
+
+.hero-cta-primary:hover {
+    background: #f0dfb8;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(230, 198, 135, 0.45);
+}
+
+.hero-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: clamp(0.8rem, 1vw, 1rem) clamp(1.5rem, 1.8vw, 2rem);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(230, 198, 135, 0.4);
+    color: var(--accent-gold);
+    font-size: clamp(0.82rem, 0.9vw, 0.92rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.hero-cta-secondary:hover {
+    background: rgba(230, 198, 135, 0.15);
+    border-color: var(--accent-gold);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   EDUCATION, EXPERIENCE & ACHIEVEMENTS SECTION
+   ========================================================================== */
+.edu-exp-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 3.5vw, 3.5rem);
+    margin-top: 2rem;
+}
+
+@media (max-width: 960px) {
+    .edu-exp-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.edu-column, .exp-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.edu-col-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--text-cream);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.edu-col-title i {
+    color: var(--accent-gold);
+    font-size: 1.15rem;
+}
+
+.edu-card, .exp-card, .hackathon-card {
+    background: rgba(18, 19, 24, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: clamp(1.4rem, 2.2vw, 2rem);
+    position: relative;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(12px);
+}
+
+.edu-card:hover, .exp-card:hover, .hackathon-card:hover {
+    border-color: rgba(230, 198, 135, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.card-role-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.card-org-name {
+    font-size: 0.92rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.card-date-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cgpa-highlight-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 0.32rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.9rem;
+}
+
+.card-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.8rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.card-bullet-list li {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #c4c4cc;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+.card-bullet-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.coursework-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+}
+
+.course-chip {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #a1a1aa;
+}
+
+/* Resume CTA Banner */
+.resume-download-banner {
+    background: linear-gradient(135deg, rgba(230, 198, 135, 0.08) 0%, rgba(18, 19, 24, 0.9) 100%);
+    border: 1px solid rgba(230, 198, 135, 0.3);
+    border-radius: 20px;
+    padding: clamp(1.8rem, 3vw, 2.6rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.resume-banner-text h3 {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0.3rem;
+}
+
+.resume-banner-text p {
+    font-size: 0.92rem;
+    color: #a1a1aa;
+    margin: 0;
+}
+
+/* ==========================================================================
+   CASE STUDY EXPANDED SPECIFICATION BLOCKS
+   ========================================================================== */
+.case-study-specs {
+    margin: 1.1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    background: rgba(10, 10, 14, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+}
+
+.spec-line {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: #d1d1d6;
+}
+
+.spec-line strong {
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+.metrics-highlight-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+}
+
+.metric-badge-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 8px;
+    background: rgba(230, 198, 135, 0.08);
+    border: 1px solid rgba(230, 198, 135, 0.22);
+    color: var(--accent-gold-light, #f0dfb8);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* Additional Experiments Grid */
+.additional-projects-header {
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 2.2rem;
+}
+
+.additional-projects-header h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: var(--text-cream);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.additional-projects-header p {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    margin-top: 0.4rem;
+}
+
+.experiments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.6rem;
+    margin-top: 1.5rem;
+}
+
+.experiment-card {
+    background: rgba(18, 19, 24, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.experiment-card:hover {
+    border-color: rgba(230, 198, 135, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.exp-card-top {
+    margin-bottom: 1.2rem;
+}
+
+.exp-category {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+}
+
+.exp-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0.4rem 0 0.6rem;
+}
+
+.exp-desc {
+    font-size: 0.86rem;
+    color: #a1a1aa;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.exp-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.exp-tech {
+    font-size: 0.75rem;
+    color: #71717a;
+    font-weight: 500;
+}
+
+.exp-link {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: transform 0.2s ease;
+}
+
+.exp-link:hover {
+    transform: translateX(3px);
+}
+
